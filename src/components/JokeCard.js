@@ -14,12 +14,12 @@ export const JokeCard = ({ joke }) => {
           <Typography gutterBottom variant="h5" component="div">
             {joke.category}
           </Typography>
-          <Typography variant="body2" color="text.secondary">
+          <Typography paragraph variant="body2" color="text.secondary">
             {joke.type === "single" ? joke.joke : joke.setup}
           </Typography>
           {joke.type !== "single" ? (
-            <Typography variant="body2" color="text.secondary">
-              joke.delivery
+            <Typography paragraph variant="body2" color="text.secondary">
+              {joke.delivery}
             </Typography>
           ) : null}
         </CardContent>
