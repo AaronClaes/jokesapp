@@ -6,8 +6,8 @@ import Jokes from "./components/Jokes";
 export const Routes = () => {
   return (
     <Switch>
-      <Route path="/" exact component={() => <Home />} />
       <Route path="/jokes" exact component={() => <Jokes />} />
+      <Route component={() => <Home />} />
     </Switch>
   );
 };

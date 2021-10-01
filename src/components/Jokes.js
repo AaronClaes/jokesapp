@@ -30,7 +30,6 @@ const Jokes = () => {
 
   return (
     <Container fixed component="main" sx={{ flexGrow: 1, p: 3 }}>
-      <Toolbar />
       {!loading ? (
         <Grid
           container

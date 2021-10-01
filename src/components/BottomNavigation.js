@@ -17,13 +17,10 @@ export default function FixedBottomNavigation() {
     switch (pathname) {
       case "/":
         return 0;
-        break;
       case "/jokes":
         return 1;
-        break;
       case "/info":
         return 2;
-        break;
       default:
         break;
     }
