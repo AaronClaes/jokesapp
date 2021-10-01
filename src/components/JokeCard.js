@@ -9,21 +9,19 @@ import { CardActionArea } from "@mui/material";
 export const JokeCard = ({ joke }) => {
   return (
     <Card style={{ height: "100%" }}>
-      <CardActionArea>
-        <CardContent>
-          <Typography gutterBottom variant="h5" component="div">
-            {joke.category}
-          </Typography>
+      <CardContent>
+        <Typography gutterBottom variant="h5" component="div">
+          {joke.category}
+        </Typography>
+        <Typography paragraph variant="body2" color="text.secondary">
+          {joke.type === "single" ? joke.joke : joke.setup}
+        </Typography>
+        {joke.type !== "single" ? (
           <Typography paragraph variant="body2" color="text.secondary">
-            {joke.type === "single" ? joke.joke : joke.setup}
+            {joke.delivery}
           </Typography>
-          {joke.type !== "single" ? (
-            <Typography paragraph variant="body2" color="text.secondary">
-              {joke.delivery}
-            </Typography>
-          ) : null}
-        </CardContent>
-      </CardActionArea>
+        ) : null}
+      </CardContent>
     </Card>
   );
 };

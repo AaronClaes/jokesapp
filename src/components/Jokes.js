@@ -4,6 +4,7 @@ import React, { useEffect, useState } from "react";
 // MUI Components
 import Container from "@mui/material/Container";
 import Grid from "@mui/material/Grid";
+import Toolbar from "@mui/material/Toolbar";
 
 // Components
 import JokeCard from "./JokeCard";
@@ -28,7 +29,8 @@ const Jokes = () => {
   }, []);
 
   return (
-    <Container fixed>
+    <Container fixed component="main" sx={{ flexGrow: 1, p: 3 }}>
+      <Toolbar />
       {!loading ? (
         <Grid
           container
