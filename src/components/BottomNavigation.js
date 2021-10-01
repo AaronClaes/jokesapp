@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useHistory } from "react-router-dom";
 
 // MUI Components
@@ -11,8 +11,29 @@ import Paper from "@mui/material/Paper";
 
 export default function FixedBottomNavigation() {
   const history = useHistory();
-  const [value, setValue] = React.useState(0);
-  const ref = React.useRef(null);
+
+  const getValue = () => {
+    const pathname = window.location.pathname;
+    switch (pathname) {
+      case "/":
+        return 0;
+        break;
+      case "/jokes":
+        return 1;
+        break;
+      case "/info":
+        return 2;
+        break;
+      default:
+        break;
+    }
+  };
+
+  const [value, setValue] = React.useState(getValue);
+
+  useEffect(() => {
+    setValue(getValue());
+  }, [history]);
 
   return (
     <Paper
