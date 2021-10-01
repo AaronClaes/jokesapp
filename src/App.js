@@ -6,13 +6,17 @@ import Routes from "./Routes";
 import Navigation from "./components/Navigation";
 import BottomNavigation from "./components/BottomNavigation";
 
+import Box from "@mui/material/Box";
+
 function App() {
   return (
     <div className="App">
       <Router>
-        <Navigation />
-        <Routes />
-        <BottomNavigation />
+        <Box sx={{ bgcolor: "background.paper", minHeight: "100vh" }}>
+          <Navigation />
+          <Routes />
+          <BottomNavigation />
+        </Box>
       </Router>
     </div>
   );

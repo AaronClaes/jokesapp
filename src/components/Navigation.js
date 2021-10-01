@@ -14,8 +14,6 @@ import List from "@mui/material/List";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
-import InboxIcon from "@mui/icons-material/Inbox";
-import DraftsIcon from "@mui/icons-material/Drafts";
 import HomeIcon from "@mui/icons-material/Home";
 import AppsIcon from "@mui/icons-material/Apps";
 import InfoIcon from "@mui/icons-material/Info";
@@ -95,7 +93,7 @@ const Navigation = () => {
 
   return (
     <Box sx={{ flexGrow: 1 }}>
-      <AppBar position="static" sx={{ ml: "auto", mr: "auto" }}>
+      <AppBar sx={{ ml: "auto", mr: "auto" }}>
         <Toolbar>
           <IconButton
             onClick={() => handleIconButtonClick()}
