@@ -107,11 +107,12 @@ const Navigation = ({ onChange }) => {
               whiteSpace: "nowrap",
               width: "min-content",
               color: "text.primary",
+              bgcolor: "background.paper",
               borderRadius: 1,
-              p: 1,
+              p: 0.5,
             }}
           >
-            <IconButton sx={{ ml: 1 }} onClick={onChange} color="inherit">
+            <IconButton onClick={onChange} color="inherit">
               {theme.palette.mode === "dark" ? (
                 <Brightness7Icon />
               ) : (
