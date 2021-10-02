@@ -11,6 +11,22 @@ const darkTheme = createTheme({
   },
 });
 
+const lightTheme = createTheme({
+  palette: {
+    mode: "light",
+    primary: {
+      main: "#c2c2c2",
+    },
+    background: {
+      default: "#e7e7e7",
+      paper: "#f1f1f1",
+    },
+    common: {
+      white: "#000000",
+    },
+  },
+});
+
 ReactDOM.render(
   <React.StrictMode>
     <ThemeProvider theme={darkTheme}>

@@ -12,7 +12,7 @@ function App() {
   return (
     <div className="App">
       <Router>
-        <Box sx={{ bgcolor: "background.paper", minHeight: "100vh" }}>
+        <Box sx={{ bgcolor: "background.default", minHeight: "100vh" }}>
           <Navigation />
           <Routes />
           <BottomNavigation />

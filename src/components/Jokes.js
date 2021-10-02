@@ -58,7 +58,7 @@ const Jokes = () => {
 
   for (let index = 0; index < 15; index++) {
     items.push(
-      <Grid item xs={4} sm={4} md={4} key={index}>
+      <Grid item xs={4} sm={4} lg={4} key={index}>
         <Skeleton
           animation="wave"
           variant="rectangular"
