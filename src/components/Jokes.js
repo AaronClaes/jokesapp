@@ -28,7 +28,7 @@ const Jokes = () => {
       const res = await axios.get("https://v2.jokeapi.dev/joke/Any?amount=10");
       allJokes = allJokes.concat(res.data.jokes);
     }
-    console.log(allJokes);
+
     setJokes(allJokes);
     setLoading(false);
   };
@@ -76,7 +76,6 @@ const Jokes = () => {
                     }
                     let flagcounter = 0;
                     for (let key in joke.flags) {
-                      console.log(filters.flags.includes(key));
                       if (
                         joke.flags[key] === true &&
                         filters.flags.includes(key)

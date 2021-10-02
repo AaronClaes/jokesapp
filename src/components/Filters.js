@@ -2,18 +2,15 @@ import * as React from "react";
 import Box from "@mui/material/Box";
 import Divider from "@mui/material/Divider";
 import Drawer from "@mui/material/Drawer";
-import InboxIcon from "@mui/icons-material/MoveToInbox";
 import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
-import ListItemIcon from "@mui/material/ListItemIcon";
-import ListItemText from "@mui/material/ListItemText";
-import MailIcon from "@mui/icons-material/Mail";
 import Toolbar from "@mui/material/Toolbar";
 import Fab from "@mui/material/Fab";
 import FilterAltIcon from "@mui/icons-material/FilterAlt";
 import FormGroup from "@mui/material/FormGroup";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Checkbox from "@mui/material/Checkbox";
+import FormHelperText from "@mui/material/FormHelperText";
 
 const drawerWidth = 240;
 
@@ -24,8 +21,7 @@ function ResponsiveDrawer({ children, window, onChange, filters }) {
     setMobileOpen(!mobileOpen);
   };
 
-  const handleChangeAll = (event) => {
-    console.log(event.target.checked);
+  const handleCategoryChangeAll = (event) => {
     const getCategories = () => {
       if (event.target.checked) {
         return ["Programming", "Misc", "Dark", "Pun", "Spooky", "Christmas"];
@@ -33,14 +29,13 @@ function ResponsiveDrawer({ children, window, onChange, filters }) {
         return [];
       }
     };
-    console.log(getCategories());
     onChange({
       ...filters,
       category: getCategories(),
     });
   };
 
-  const handleChange = (event) => {
+  const handleCategoryChange = (event) => {
     const getFilters = () => {
       if (filters.category.includes(event.target.name)) {
         return filters.category.filter((cat) => cat !== event.target.name);
@@ -54,12 +49,57 @@ function ResponsiveDrawer({ children, window, onChange, filters }) {
       category: getFilters(),
     });
   };
-  const countCheckedItems = () => {
+
+  const countCheckedCategoryItems = () => {
     let counter = 0;
     filters.category.map((cat) => {
       counter++;
     });
-    console.log(counter);
+    return counter;
+  };
+
+  // FLAGS
+  const handleFlagsChangeAll = (event) => {
+    const getFlags = () => {
+      if (event.target.checked) {
+        return [
+          "explicit",
+          "nsfw",
+          "political",
+          "racist",
+          "religious",
+          "sexist",
+        ];
+      } else {
+        return [];
+      }
+    };
+    onChange({
+      ...filters,
+      flags: getFlags(),
+    });
+  };
+
+  const handleFlagsChange = (event) => {
+    const getFilters = () => {
+      if (filters.flags.includes(event.target.name)) {
+        return filters.flags.filter((flag) => flag !== event.target.name);
+      } else {
+        return [...filters.flags, event.target.name];
+      }
+    };
+
+    onChange({
+      ...filters,
+      flags: getFilters(),
+    });
+  };
+
+  const countCheckedFlagsItems = () => {
+    let counter = 0;
+    filters.flags.map((cat) => {
+      counter++;
+    });
     return counter;
   };
 
@@ -74,11 +114,12 @@ function ResponsiveDrawer({ children, window, onChange, filters }) {
               label="Categories"
               control={
                 <Checkbox
-                  checked={countCheckedItems() === 6}
+                  checked={countCheckedCategoryItems() === 6}
                   indeterminate={
-                    countCheckedItems() > 0 && countCheckedItems() < 6
+                    countCheckedCategoryItems() > 0 &&
+                    countCheckedCategoryItems() < 6
                   }
-                  onChange={handleChangeAll}
+                  onChange={handleCategoryChangeAll}
                 />
               }
             />
@@ -97,7 +138,7 @@ function ResponsiveDrawer({ children, window, onChange, filters }) {
                     <Checkbox
                       name={text}
                       checked={filters.category.includes(text)}
-                      onChange={handleChange}
+                      onChange={handleCategoryChange}
                     />
                   }
                 />
@@ -105,17 +146,47 @@ function ResponsiveDrawer({ children, window, onChange, filters }) {
             </Box>
           </FormGroup>
         </ListItem>
-      </List>
-      <Divider />
-      <List>
-        {["All mail", "Trash", "Spam"].map((text, index) => (
-          <ListItem button key={text}>
-            <ListItemIcon>
-              {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-            </ListItemIcon>
-            <ListItemText primary={text} />
-          </ListItem>
-        ))}
+        <Divider />
+        <ListItem>
+          <FormGroup>
+            <FormHelperText error={countCheckedFlagsItems() !== 6}>
+              Turning off flags will display inappropriate jokes
+            </FormHelperText>
+            <FormControlLabel
+              label="Flags"
+              control={
+                <Checkbox
+                  checked={countCheckedFlagsItems() === 6}
+                  indeterminate={
+                    countCheckedFlagsItems() > 0 && countCheckedFlagsItems() < 6
+                  }
+                  onChange={handleFlagsChangeAll}
+                />
+              }
+            />
+            <Box sx={{ display: "flex", flexDirection: "column", ml: 3 }}>
+              {[
+                "explicit",
+                "nsfw",
+                "political",
+                "racist",
+                "religious",
+                "sexist",
+              ].map((text, index) => (
+                <FormControlLabel
+                  label={text}
+                  control={
+                    <Checkbox
+                      name={text}
+                      checked={filters.flags.includes(text)}
+                      onChange={handleFlagsChange}
+                    />
+                  }
+                />
+              ))}
+            </Box>
+          </FormGroup>
+        </ListItem>
       </List>
     </div>
   );
