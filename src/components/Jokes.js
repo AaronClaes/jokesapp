@@ -8,6 +8,8 @@ import Toolbar from "@mui/material/Toolbar";
 import LoadingButton from "@mui/lab/LoadingButton";
 import Box from "@mui/material/Box";
 import Skeleton from "@mui/material/Skeleton";
+import Stack from "@mui/material/Stack";
+import Alert from "@mui/material/Alert";
 
 // Components
 import JokeCard from "./JokeCard";
@@ -21,6 +23,7 @@ const Jokes = () => {
     category: ["Programming", "Misc", "Dark", "Pun", "Spooky", "Christmas"],
     flags: ["explicit", "nsfw", "political", "racist", "religious", "sexist"],
   });
+  const [searchValue, setSearchValue] = useState("");
 
   const fetchJokes = async () => {
     setLoading(true);
@@ -31,6 +34,19 @@ const Jokes = () => {
     }
 
     setJokes(allJokes);
+    setLoading(false);
+  };
+
+  const searchJokes = async (value) => {
+    setLoading(true);
+    const res = await axios.get(
+      `https://v2.jokeapi.dev/joke/Any?contains=${value}&amount=10`
+    );
+    if (res.data.error) {
+      setJokes([]);
+    } else {
+      setJokes(res.data.jokes);
+    }
     setLoading(false);
   };
 
@@ -57,12 +73,18 @@ const Jokes = () => {
     setFilters(filters);
   };
 
+  const handleSearchChange = (value) => {
+    searchJokes(value);
+  };
+
   return (
     <Fragment>
       <Filters onChange={handleFilterChange} filters={filters}>
         <Container fixed component="main" sx={{ flexGrow: 1, p: 3 }}>
           <Toolbar />
-          <SearchInput />
+          <Stack direction="row" spacing={2}>
+            <SearchInput value={searchValue} onChange={handleSearchChange} />
+          </Stack>
           {jokes.length > 0 ? (
             <Fragment>
               <Grid
@@ -117,7 +139,7 @@ const Jokes = () => {
                 </LoadingButton>
               </Box>
             </Fragment>
-          ) : (
+          ) : loading ? (
             <Grid
               container
               spacing={{ xs: 2 }}
@@ -126,8 +148,11 @@ const Jokes = () => {
             >
               {items}
             </Grid>
+          ) : (
+            <Alert severity="error">
+              {`There are no jokes found - please try a different searchterm`}
+            </Alert>
           )}
-
           <Toolbar />
         </Container>
       </Filters>

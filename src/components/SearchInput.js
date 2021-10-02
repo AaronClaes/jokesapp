@@ -15,8 +15,7 @@ const Search = styled("div")(({ theme }) => ({
   marginBottom: "1rem",
   width: "100%",
   [theme.breakpoints.up("sm")]: {
-    marginLeft: theme.spacing(1),
-    width: "auto%",
+    width: "auto",
   },
 }));
 
@@ -39,7 +38,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
     transition: theme.transitions.create("width"),
     width: "100%",
     [theme.breakpoints.up("sm")]: {
-      width: "12ch",
+      width: "10ch",
       "&:focus": {
         width: "20ch",
       },
@@ -47,15 +46,27 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
   },
 }));
 
-const SearchInput = () => {
+const SearchInput = ({ onChange, value }) => {
+  const handleBlur = (e) => {
+    onChange(e.target.value);
+  };
+
+  const shouldBlur = (e) => {
+    if (e.keyCode === 13) {
+      e.target.blur();
+    }
+  };
+
   return (
     <Search>
       <SearchIconWrapper>
         <SearchIcon />
       </SearchIconWrapper>
       <StyledInputBase
+        onBlur={handleBlur}
         placeholder="Search…"
         inputProps={{ "aria-label": "search" }}
+        onKeyDown={shouldBlur}
       />
     </Search>
   );
