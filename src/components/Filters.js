@@ -17,47 +17,48 @@ import Checkbox from "@mui/material/Checkbox";
 
 const drawerWidth = 240;
 
-function ResponsiveDrawer({ children, window }) {
+function ResponsiveDrawer({ children, window, onChange, filters }) {
   const [mobileOpen, setMobileOpen] = React.useState(false);
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
   };
 
-  const [state, setState] = React.useState({
-    Programming: true,
-    Misc: true,
-    Dark: true,
-    Pun: true,
-    Spooky: true,
-    Christmas: true,
-  });
-
   const handleChangeAll = (event) => {
-    setState({
-      ...state,
-      Programming: event.target.checked,
-      Misc: event.target.checked,
-      Dark: event.target.checked,
-      Pun: event.target.checked,
-      Spooky: event.target.checked,
-      Christmas: event.target.checked,
+    console.log(event.target.checked);
+    const getCategories = () => {
+      if (event.target.checked) {
+        return ["Programming", "Misc", "Dark", "Pun", "Spooky", "Christmas"];
+      } else {
+        return [];
+      }
+    };
+    console.log(getCategories());
+    onChange({
+      ...filters,
+      category: getCategories(),
     });
   };
 
   const handleChange = (event) => {
-    setState({
-      ...state,
-      [event.target.name]: event.target.checked,
+    const getFilters = () => {
+      if (filters.category.includes(event.target.name)) {
+        return filters.category.filter((cat) => cat !== event.target.name);
+      } else {
+        return [...filters.category, event.target.name];
+      }
+    };
+
+    onChange({
+      ...filters,
+      category: getFilters(),
     });
   };
   const countCheckedItems = () => {
     let counter = 0;
-    for (const key in state) {
-      if (state[key] === true) {
-        counter++;
-      }
-    }
+    filters.category.map((cat) => {
+      counter++;
+    });
     console.log(counter);
     return counter;
   };
@@ -95,7 +96,7 @@ function ResponsiveDrawer({ children, window }) {
                   control={
                     <Checkbox
                       name={text}
-                      checked={state[text]}
+                      checked={filters.category.includes(text)}
                       onChange={handleChange}
                     />
                   }

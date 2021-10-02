@@ -16,11 +16,15 @@ import Filters from "./Filters";
 const Jokes = () => {
   const [jokes, setJokes] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [filters, setFilters] = useState({
+    category: ["Programming", "Misc", "Dark", "Pun", "Spooky", "Christmas"],
+    flags: ["explicit", "nsfw", "political", "racist", "religious", "sexist"],
+  });
 
   const fetchJokes = async () => {
     setLoading(true);
     let allJokes = jokes;
-    for (let index = 0; index < 10; index++) {
+    for (let index = 0; index < 3; index++) {
       const res = await axios.get("https://v2.jokeapi.dev/joke/Any?amount=10");
       allJokes = allJokes.concat(res.data.jokes);
     }
@@ -48,9 +52,13 @@ const Jokes = () => {
     );
   }
 
+  const handleFilterChange = (filters) => {
+    setFilters(filters);
+  };
+
   return (
     <Fragment>
-      <Filters>
+      <Filters onChange={handleFilterChange} filters={filters}>
         <Container fixed component="main" sx={{ flexGrow: 1, p: 3 }}>
           <Toolbar />
           {jokes.length > 0 ? (
@@ -61,13 +69,33 @@ const Jokes = () => {
                 columns={{ xs: 4, sm: 8, lg: 12 }}
                 alignItems="stretch"
               >
-                {jokes.map((joke, index) => {
-                  return (
-                    <Grid item xs={4} sm={4} lg={4} key={index}>
-                      <JokeCard joke={joke} />
-                    </Grid>
-                  );
-                })}
+                {jokes
+                  .filter((joke) => {
+                    if (!filters.category.includes(joke.category)) {
+                      return false;
+                    }
+                    let flagcounter = 0;
+                    for (let key in joke.flags) {
+                      console.log(filters.flags.includes(key));
+                      if (
+                        joke.flags[key] === true &&
+                        filters.flags.includes(key)
+                      ) {
+                        flagcounter++;
+                      }
+                    }
+                    if (flagcounter > 0) {
+                      return false;
+                    }
+                    return true;
+                  })
+                  .map((joke, index) => {
+                    return (
+                      <Grid item xs={4} sm={4} lg={4} key={index}>
+                        <JokeCard joke={joke} />
+                      </Grid>
+                    );
+                  })}
               </Grid>
               <Box
                 sx={{
