@@ -11,6 +11,9 @@ import MailIcon from "@mui/icons-material/Mail";
 import Toolbar from "@mui/material/Toolbar";
 import Fab from "@mui/material/Fab";
 import FilterAltIcon from "@mui/icons-material/FilterAlt";
+import FormGroup from "@mui/material/FormGroup";
+import FormControlLabel from "@mui/material/FormControlLabel";
+import Checkbox from "@mui/material/Checkbox";
 
 const drawerWidth = 240;
 
@@ -21,19 +24,86 @@ function ResponsiveDrawer({ children, window }) {
     setMobileOpen(!mobileOpen);
   };
 
+  const [state, setState] = React.useState({
+    Programming: true,
+    Misc: true,
+    Dark: true,
+    Pun: true,
+    Spooky: true,
+    Christmas: true,
+  });
+
+  const handleChangeAll = (event) => {
+    setState({
+      ...state,
+      Programming: event.target.checked,
+      Misc: event.target.checked,
+      Dark: event.target.checked,
+      Pun: event.target.checked,
+      Spooky: event.target.checked,
+      Christmas: event.target.checked,
+    });
+  };
+
+  const handleChange = (event) => {
+    setState({
+      ...state,
+      [event.target.name]: event.target.checked,
+    });
+  };
+  const countCheckedItems = () => {
+    let counter = 0;
+    for (const key in state) {
+      if (state[key] === true) {
+        counter++;
+      }
+    }
+    console.log(counter);
+    return counter;
+  };
+
   const drawer = (
     <div>
       <Toolbar />
       <Divider />
       <List>
-        {["Inbox", "Starred", "Send email", "Drafts"].map((text, index) => (
-          <ListItem button key={text}>
-            <ListItemIcon>
-              {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-            </ListItemIcon>
-            <ListItemText primary={text} />
-          </ListItem>
-        ))}
+        <ListItem>
+          <FormGroup>
+            <FormControlLabel
+              label="Categories"
+              control={
+                <Checkbox
+                  checked={countCheckedItems() === 6}
+                  indeterminate={
+                    countCheckedItems() > 0 && countCheckedItems() < 6
+                  }
+                  onChange={handleChangeAll}
+                />
+              }
+            />
+            <Box sx={{ display: "flex", flexDirection: "column", ml: 3 }}>
+              {[
+                "Programming",
+                "Misc",
+                "Dark",
+                "Pun",
+                "Spooky",
+                "Christmas",
+              ].map((text, index) => (
+                <FormControlLabel
+                  label={text}
+                  control={
+                    <Checkbox
+                      name={text}
+                      checked={state[text]}
+                      onChange={handleChange}
+                    />
+                  }
+                />
+              ))}
+            </Box>
+          </FormGroup>
+        </ListItem>
       </List>
       <Divider />
       <List>
@@ -96,9 +166,10 @@ function ResponsiveDrawer({ children, window }) {
       <Fab
         onClick={handleDrawerToggle}
         sx={{
+          display: { sm: "inline-flex", md: "none" },
           position: "fixed",
           bottom: { xs: "80px", sm: "20px" },
-          left: "20px",
+          right: "20px",
         }}
         variant="extended"
       >
