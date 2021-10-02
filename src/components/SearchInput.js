@@ -63,6 +63,7 @@ const SearchInput = ({ onChange, value }) => {
         <SearchIcon />
       </SearchIconWrapper>
       <StyledInputBase
+        fullWidth
         onBlur={handleBlur}
         placeholder="Search…"
         inputProps={{ "aria-label": "search" }}
