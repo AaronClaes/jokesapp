@@ -11,6 +11,7 @@ import Skeleton from "@mui/material/Skeleton";
 
 // Components
 import JokeCard from "./JokeCard";
+import Filters from "./Filters";
 
 const Jokes = () => {
   const [jokes, setJokes] = useState([]);
@@ -23,6 +24,7 @@ const Jokes = () => {
       const res = await axios.get("https://v2.jokeapi.dev/joke/Any?amount=10");
       allJokes = allJokes.concat(res.data.jokes);
     }
+    console.log(allJokes);
     setJokes(allJokes);
     setLoading(false);
   };
@@ -47,56 +49,60 @@ const Jokes = () => {
   }
 
   return (
-    <Container fixed component="main" sx={{ flexGrow: 1, p: 3 }}>
-      <Toolbar />
-      {jokes.length > 0 ? (
-        <Fragment>
-          <Grid
-            container
-            spacing={{ xs: 2 }}
-            columns={{ xs: 4, sm: 8, md: 12 }}
-            alignItems="stretch"
-          >
-            {jokes.map((joke, index) => {
-              return (
-                <Grid item xs={4} sm={4} md={4} key={index}>
-                  <JokeCard joke={joke} />
-                </Grid>
-              );
-            })}
-          </Grid>
-          <Box
-            sx={{
-              width: "100%",
-              height: 100,
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-            }}
-          >
-            <LoadingButton
-              onClick={fetchJokes}
-              loading={loading}
-              loadingIndicator="Loading..."
-              variant="contained"
+    <Fragment>
+      <Filters>
+        <Container fixed component="main" sx={{ flexGrow: 1, p: 3 }}>
+          <Toolbar />
+          {jokes.length > 0 ? (
+            <Fragment>
+              <Grid
+                container
+                spacing={{ xs: 2 }}
+                columns={{ xs: 4, sm: 8, lg: 12 }}
+                alignItems="stretch"
+              >
+                {jokes.map((joke, index) => {
+                  return (
+                    <Grid item xs={4} sm={4} lg={4} key={index}>
+                      <JokeCard joke={joke} />
+                    </Grid>
+                  );
+                })}
+              </Grid>
+              <Box
+                sx={{
+                  width: "100%",
+                  height: 100,
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
+                }}
+              >
+                <LoadingButton
+                  onClick={fetchJokes}
+                  loading={loading}
+                  loadingIndicator="Loading..."
+                  variant="contained"
+                >
+                  Load more
+                </LoadingButton>
+              </Box>
+            </Fragment>
+          ) : (
+            <Grid
+              container
+              spacing={{ xs: 2 }}
+              columns={{ xs: 4, sm: 8, lg: 12 }}
+              alignItems="stretch"
             >
-              Load more
-            </LoadingButton>
-          </Box>
-        </Fragment>
-      ) : (
-        <Grid
-          container
-          spacing={{ xs: 2 }}
-          columns={{ xs: 4, sm: 8, md: 12 }}
-          alignItems="stretch"
-        >
-          {items}
-        </Grid>
-      )}
+              {items}
+            </Grid>
+          )}
 
-      <Toolbar />
-    </Container>
+          <Toolbar />
+        </Container>
+      </Filters>
+    </Fragment>
   );
 };
 

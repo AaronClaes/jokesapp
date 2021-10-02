@@ -93,7 +93,7 @@ const Navigation = () => {
 
   return (
     <Box sx={{ flexGrow: 1 }}>
-      <AppBar sx={{ ml: "auto", mr: "auto" }}>
+      <AppBar sx={{ ml: "auto", mr: "auto" }} position="fixed">
         <Toolbar>
           <IconButton
             onClick={() => handleIconButtonClick()}
@@ -155,7 +155,9 @@ const Navigation = () => {
             bgcolor: "background.paper",
             display: { xs: "none", sm: "block", md: "none" },
           }}
+          position="fixed"
         >
+          <Toolbar />
           <List
             disablePadding
             component="nav"
