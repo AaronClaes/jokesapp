@@ -10,7 +10,7 @@ import BottomNavigation from "./components/BottomNavigation";
 import Box from "@mui/material/Box";
 
 function App() {
-  const [darkState, setDarkState] = useState(false);
+  const [darkState, setDarkState] = useState(true);
   const palletType = darkState ? "dark" : "light";
 
   const handleThemeChange = () => {

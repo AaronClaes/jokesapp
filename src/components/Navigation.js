@@ -126,7 +126,7 @@ const Navigation = ({ onChange }) => {
           sx={{
             width: "100%",
             bgcolor: "background.paper",
-            display: { xs: "none", sm: "block", md: "none" },
+            display: { xs: "none", sm: "block", md: "none", zIndex: 1100 },
           }}
           position="fixed"
         >
