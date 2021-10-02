@@ -12,6 +12,7 @@ import Skeleton from "@mui/material/Skeleton";
 // Components
 import JokeCard from "./JokeCard";
 import Filters from "./Filters";
+import SearchInput from "./SearchInput";
 
 const Jokes = () => {
   const [jokes, setJokes] = useState([]);
@@ -61,6 +62,7 @@ const Jokes = () => {
       <Filters onChange={handleFilterChange} filters={filters}>
         <Container fixed component="main" sx={{ flexGrow: 1, p: 3 }}>
           <Toolbar />
+          <SearchInput />
           {jokes.length > 0 ? (
             <Fragment>
               <Grid
