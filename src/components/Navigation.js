@@ -18,10 +18,16 @@ import HomeIcon from "@mui/icons-material/Home";
 import AppsIcon from "@mui/icons-material/Apps";
 import InfoIcon from "@mui/icons-material/Info";
 import SearchInput from "./SearchInput";
+import { useTheme, ThemeProvider, createTheme } from "@mui/material/styles";
+import Brightness4Icon from "@mui/icons-material/Brightness4";
+import Brightness7Icon from "@mui/icons-material/Brightness7";
 
-const Navigation = () => {
+const ColorModeContext = React.createContext({ toggleColorMode: () => {} });
+
+const Navigation = ({ onChange }) => {
   const history = useHistory();
-
+  const theme = useTheme();
+  const colorMode = React.useContext(ColorModeContext);
   const [open, setOpen] = useState(false);
 
   const handleListItemClick = (event, index, path) => {
@@ -96,6 +102,23 @@ const Navigation = () => {
           >
             Info
           </Button>
+          <Box
+            sx={{
+              whiteSpace: "nowrap",
+              width: "min-content",
+              color: "text.primary",
+              borderRadius: 1,
+              p: 1,
+            }}
+          >
+            <IconButton sx={{ ml: 1 }} onClick={onChange} color="inherit">
+              {theme.palette.mode === "dark" ? (
+                <Brightness7Icon />
+              ) : (
+                <Brightness4Icon />
+              )}
+            </IconButton>
+          </Box>
         </Toolbar>
       </AppBar>
       {open ? (
