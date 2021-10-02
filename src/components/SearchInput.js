@@ -48,7 +48,9 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 
 const SearchInput = ({ onChange, value }) => {
   const handleBlur = (e) => {
-    onChange(e.target.value);
+    if (e.target.value !== "") {
+      onChange(e.target.value);
+    }
   };
 
   const shouldBlur = (e) => {
