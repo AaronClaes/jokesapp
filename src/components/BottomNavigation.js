@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { useHistory } from "react-router-dom";
+import { useHistory, useLocation } from "react-router-dom";
 
 // MUI Components
 import BottomNavigation from "@mui/material/BottomNavigation";
@@ -26,11 +26,13 @@ export default function FixedBottomNavigation() {
     }
   };
 
-  const [value, setValue] = React.useState(getValue);
+  const location = useLocation();
 
   useEffect(() => {
     setValue(getValue());
-  }, [history]);
+  }, [location]);
+
+  const [value, setValue] = React.useState(getValue);
 
   return (
     <Paper
@@ -44,6 +46,7 @@ export default function FixedBottomNavigation() {
       elevation={3}
     >
       <BottomNavigation
+        showLabels
         value={value}
         onChange={(event, newValue) => {
           setValue(newValue);
