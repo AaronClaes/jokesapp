@@ -1,8 +1,8 @@
 {
   "files": {
     "main.css": "/jokesapp/static/css/main.6dea0f05.chunk.css",
-    "main.js": "/jokesapp/static/js/main.1eb55421.chunk.js",
-    "main.js.map": "/jokesapp/static/js/main.1eb55421.chunk.js.map",
+    "main.js": "/jokesapp/static/js/main.2ff13740.chunk.js",
+    "main.js.map": "/jokesapp/static/js/main.2ff13740.chunk.js.map",
     "runtime-main.js": "/jokesapp/static/js/runtime-main.cf81e464.js",
     "runtime-main.js.map": "/jokesapp/static/js/runtime-main.cf81e464.js.map",
     "static/js/2.d1f004c0.chunk.js": "/jokesapp/static/js/2.d1f004c0.chunk.js",
@@ -17,6 +17,6 @@
     "static/js/runtime-main.cf81e464.js",
     "static/js/2.d1f004c0.chunk.js",
     "static/css/main.6dea0f05.chunk.css",
-    "static/js/main.1eb55421.chunk.js"
+    "static/js/main.2ff13740.chunk.js"
   ]
 }
