@@ -63,12 +63,12 @@ function ResponsiveDrawer({ children, window, onChange, filters }) {
     const getFlags = () => {
       if (event.target.checked) {
         return [
-          "Explicit",
-          "Nsfw",
-          "Political",
-          "Racist",
-          "Religious",
-          "Sexist",
+          "explicit",
+          "nsfw",
+          "political",
+          "racist",
+          "religious",
+          "sexist",
         ];
       } else {
         return [];
@@ -166,15 +166,15 @@ function ResponsiveDrawer({ children, window, onChange, filters }) {
             />
             <Box sx={{ display: "flex", flexDirection: "column", ml: 3 }}>
               {[
-                "Explicit",
-                "Nsfw",
-                "Political",
-                "Racist",
-                "Religious",
-                "Sexist",
+                "explicit",
+                "nsfw",
+                "political",
+                "racist",
+                "religious",
+                "sexist",
               ].map((text, index) => (
                 <FormControlLabel
-                  label={text}
+                  label={text.charAt(0).toUpperCase() + text.slice(1)}
                   control={
                     <Checkbox
                       name={text}

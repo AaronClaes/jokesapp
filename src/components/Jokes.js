@@ -21,7 +21,7 @@ const Jokes = () => {
   const [loading, setLoading] = useState(true);
   const [filters, setFilters] = useState({
     category: ["Programming", "Misc", "Dark", "Pun", "Spooky", "Christmas"],
-    flags: ["Explicit", "Nsfw", "Political", "Racist", "Religious", "Sexist"],
+    flags: ["explicit", "nsfw", "political", "racist", "religious", "sexist"],
   });
   let shownJokes = 0;
 
