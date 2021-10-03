@@ -15,6 +15,7 @@ import Alert from "@mui/material/Alert";
 import JokeCard from "./JokeCard";
 import Filters from "./Filters";
 import SearchInput from "./SearchInput";
+import DisclaimerDialog from "./DisclaimerDialog";
 
 const Jokes = () => {
   const [jokes, setJokes] = useState([]);
@@ -79,6 +80,10 @@ const Jokes = () => {
 
   return (
     <Fragment>
+      {console.log(localStorage.getItem("disclaimeragreed"))}
+      {localStorage.getItem("disclaimeragreed") === "true" ? null : (
+        <DisclaimerDialog />
+      )}
       <Filters onChange={handleFilterChange} filters={filters}>
         <Container fixed component="main" sx={{ flexGrow: 1, p: 3 }}>
           <Toolbar />
