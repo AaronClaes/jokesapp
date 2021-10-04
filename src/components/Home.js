@@ -12,6 +12,7 @@ import Button from "@mui/material/Button";
 import Grid from "@mui/material/Grid";
 
 const Home = () => {
+  document.title = "Joke Application - Home";
   const history = useHistory();
 
   return (
