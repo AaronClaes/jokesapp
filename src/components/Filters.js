@@ -108,7 +108,7 @@ function ResponsiveDrawer({ children, window, onChange, filters }) {
       <Toolbar />
       <Divider />
       <List>
-        <ListItem>
+        <ListItem key="categories">
           <FormGroup>
             <FormControlLabel
               label="Categories"
@@ -133,6 +133,7 @@ function ResponsiveDrawer({ children, window, onChange, filters }) {
                 "Christmas",
               ].map((text, index) => (
                 <FormControlLabel
+                  key={index}
                   label={text}
                   control={
                     <Checkbox
@@ -146,8 +147,10 @@ function ResponsiveDrawer({ children, window, onChange, filters }) {
             </Box>
           </FormGroup>
         </ListItem>
-        <Divider />
-        <ListItem>
+      </List>
+      <Divider />
+      <List>
+        <ListItem key="filters">
           <FormGroup>
             <FormHelperText error={countCheckedFlagsItems() !== 6}>
               Turning off flags will display inappropriate jokes
@@ -174,6 +177,7 @@ function ResponsiveDrawer({ children, window, onChange, filters }) {
                 "sexist",
               ].map((text, index) => (
                 <FormControlLabel
+                  key={index}
                   label={text.charAt(0).toUpperCase() + text.slice(1)}
                   control={
                     <Checkbox

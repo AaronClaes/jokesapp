@@ -112,7 +112,11 @@ const Navigation = ({ onChange }) => {
               p: 0.5,
             }}
           >
-            <IconButton onClick={onChange} color="inherit">
+            <IconButton
+              onClick={onChange}
+              color="inherit"
+              aria-label={"dark mode switch"}
+            >
               {theme.palette.mode === "dark" ? (
                 <Brightness7Icon />
               ) : (
