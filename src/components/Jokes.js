@@ -18,7 +18,7 @@ import SearchInput from "./SearchInput";
 import DisclaimerDialog from "./DisclaimerDialog";
 
 const Jokes = () => {
-  document.title = "Joke Application - Jokes";
+  document.title = "JokeHub - Jokes";
   const [jokes, setJokes] = useState([]);
   const [loading, setLoading] = useState(true);
   const [filters, setFilters] = useState({

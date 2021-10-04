@@ -25,9 +25,7 @@ export const JokeCard = ({ joke }) => {
       var type = "text/plain";
       var blob = new Blob([text], { type });
       var data = [new window.ClipboardItem({ [type]: blob })];
-      console.log("0");
       await navigator.clipboard.write(data);
-      console.log("1");
       setShowSnackbar(false);
       setShowSnackbar(true);
       setSnackbarMessage("Joke copied to clipboard!");

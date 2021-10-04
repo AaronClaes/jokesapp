@@ -79,7 +79,7 @@ const Navigation = ({ onChange }) => {
             component="div"
             sx={{ flexGrow: 1, marginLeft: "auto" }}
           >
-            Jokes Application
+            JokeHub
           </Typography>
           <Button
             onClick={(event) => handleListItemClick(event, 0, "/")}
