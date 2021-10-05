@@ -11,11 +11,14 @@ import FormGroup from "@mui/material/FormGroup";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Checkbox from "@mui/material/Checkbox";
 import FormHelperText from "@mui/material/FormHelperText";
+import TextField from "@mui/material/TextField";
+import Autocomplete from "@mui/material/Autocomplete";
 
 const drawerWidth = 240;
 
 function ResponsiveDrawer({ children, window, onChange, filters }) {
   const [mobileOpen, setMobileOpen] = React.useState(false);
+  const [inputValue, setInputValue] = React.useState("");
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
@@ -190,6 +193,32 @@ function ResponsiveDrawer({ children, window, onChange, filters }) {
               ))}
             </Box>
           </FormGroup>
+        </ListItem>
+      </List>
+      <List>
+        <ListItem>
+          <Autocomplete
+            disableClearable
+            value={filters.language.label}
+            onChange={(event, newValue) => {
+              onChange({ ...filters, language: newValue }, "lang");
+            }}
+            inputValue={inputValue}
+            onInputChange={(event, newInputValue) => {
+              setInputValue(newInputValue);
+            }}
+            id="controllable-states-demo"
+            options={[
+              { label: "Spanish", id: "es" },
+              { label: "English", id: "en" },
+              { label: "Czech", id: "cs" },
+              { label: "German", id: "de" },
+              { label: "French", id: "fr" },
+              { label: "Portuguese", id: "pt" },
+            ]}
+            sx={{ width: 300 }}
+            renderInput={(params) => <TextField {...params} label="Language" />}
+          />
         </ListItem>
       </List>
     </div>

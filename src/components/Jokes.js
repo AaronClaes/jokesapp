@@ -24,14 +24,23 @@ const Jokes = () => {
   const [filters, setFilters] = useState({
     category: ["Programming", "Misc", "Dark", "Pun", "Spooky", "Christmas"],
     flags: ["explicit", "nsfw", "political", "racist", "religious", "sexist"],
+    language: { label: "English", id: "en" },
   });
   let shownJokes = 0;
 
-  const fetchJokes = async () => {
+  const fetchJokes = async (lang) => {
     setLoading(true);
     let allJokes = jokes;
+    let language = filters.language.id;
+    if (lang) {
+      allJokes = [];
+      language = lang;
+    }
+
+    console.log(language, filters.language.id, "test");
     for (let index = 0; index < 5; index++) {
-      const res = await axios.get("https://v2.jokeapi.dev/joke/Any?amount=10");
+      const url = "https://v2.jokeapi.dev/joke/Any?amount=10&lang=" + language;
+      const res = await axios.get(url);
       allJokes = allJokes.concat(res.data.jokes);
     }
 
@@ -41,8 +50,9 @@ const Jokes = () => {
 
   const searchJokes = async (value) => {
     setLoading(true);
+    let language = filters.language.id;
     const res = await axios.get(
-      `https://v2.jokeapi.dev/joke/Any?contains=${value}&amount=10`
+      `https://v2.jokeapi.dev/joke/Any?contains=${value}&amount=10&lang=${language}`
     );
     if (res.data.error) {
       setJokes([]);
@@ -71,8 +81,12 @@ const Jokes = () => {
     );
   }
 
-  const handleFilterChange = (filters) => {
+  const handleFilterChange = (filters, type) => {
     setFilters(filters);
+    if (type === "lang") {
+      setLoading(true);
+      fetchJokes(filters.language.id);
+    }
   };
 
   const handleSearchChange = (value) => {
@@ -148,7 +162,7 @@ const Jokes = () => {
                 }}
               >
                 <LoadingButton
-                  onClick={fetchJokes}
+                  onClick={() => fetchJokes()}
                   loading={loading}
                   loadingIndicator="Loading..."
                   variant="contained"

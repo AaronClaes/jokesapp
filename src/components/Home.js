@@ -1,7 +1,6 @@
 import React from "react";
 import { useHistory } from "react-router-dom";
 
-import headerImage from "../images/home_header_image.png";
 import emojiImage from "../images/home_header_emoji.png";
 
 // MUI Components
@@ -10,7 +9,6 @@ import Toolbar from "@mui/material/Toolbar";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
-import Grid from "@mui/material/Grid";
 import Stack from "@mui/material/Stack";
 
 const Home = () => {
@@ -26,7 +24,7 @@ const Home = () => {
         alignItems="center"
         spacing={12}
         sx={{
-          mt: { xs: 10, md: 15, lg: 15 },
+          mt: { xs: 10, md: 25, lg: 15 },
           ml: { xs: 5, md: 10, lg: 0 },
           mr: { xs: 5, md: 10, lg: 0 },
         }}
