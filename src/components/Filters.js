@@ -55,9 +55,10 @@ function ResponsiveDrawer({ children, window, onChange, filters }) {
 
   const countCheckedCategoryItems = () => {
     let counter = 0;
-    filters.category.map((cat) => {
+    filters.category.forEach((element) => {
       counter++;
     });
+
     return counter;
   };
 
@@ -100,7 +101,7 @@ function ResponsiveDrawer({ children, window, onChange, filters }) {
 
   const countCheckedFlagsItems = () => {
     let counter = 0;
-    filters.flags.map((cat) => {
+    filters.flags.forEach((element) => {
       counter++;
     });
     return counter;

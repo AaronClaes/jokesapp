@@ -17,10 +17,6 @@ export default function DisclaimerDialog() {
   let history = useHistory();
   const [open, setOpen] = React.useState(true);
 
-  const handleClickOpen = () => {
-    setOpen(true);
-  };
-
   const handleAgree = () => {
     localStorage.setItem("disclaimeragreed", "true");
     setOpen(false);
