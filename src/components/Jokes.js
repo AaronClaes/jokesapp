@@ -27,6 +27,7 @@ const Jokes = () => {
     language: { label: "English", id: "en" },
   });
   let shownJokes = 0;
+  let totalJokes = 0;
 
   const fetchJokes = async (lang) => {
     setLoading(true);
@@ -58,8 +59,18 @@ const Jokes = () => {
     fetchJokes();
   }, [filters.language]);
 
-  var items = [];
+  const handleFilterChange = (filters, type) => {
+    if (type === "lang") {
+      setJokes([]);
+    }
+    setFilters(filters);
+  };
 
+  const handleSearchChange = (value) => {
+    searchJokes(value);
+  };
+
+  let items = [];
   for (let index = 0; index < 15; index++) {
     items.push(
       <Grid item xs={4} sm={4} lg={4} key={index}>
@@ -73,15 +84,35 @@ const Jokes = () => {
     );
   }
 
-  const handleFilterChange = (filters, type) => {
-    if (type === "lang") {
-      setJokes([]);
-    }
-    setFilters(filters);
-  };
+  const filterJokes = (unfilteredJokes) => {
+    const uniqueJokes = new Set();
+    console.log(unfilteredJokes);
+    console.log(uniqueJokes);
+    const filteredJokes = unfilteredJokes.filter((joke) => {
+      if (uniqueJokes.has(joke.id)) {
+        console.log(joke.id);
+        return false;
+      } else {
+        uniqueJokes.add(joke.id);
+        totalJokes++;
+      }
+      if (!filters.category.includes(joke.category)) {
+        return false;
+      }
+      let flagcounter = 0;
+      for (let key in joke.flags) {
+        if (joke.flags[key] === true && filters.flags.includes(key)) {
+          flagcounter++;
+        }
+      }
+      if (flagcounter > 0) {
+        return false;
+      }
+      shownJokes++;
+      return true;
+    });
 
-  const handleSearchChange = (value) => {
-    searchJokes(value);
+    return filteredJokes;
   };
 
   return (
@@ -104,33 +135,13 @@ const Jokes = () => {
                 columns={{ xs: 4, sm: 8, lg: 12 }}
                 alignItems="stretch"
               >
-                {jokes
-                  .filter((joke) => {
-                    if (!filters.category.includes(joke.category)) {
-                      return false;
-                    }
-                    let flagcounter = 0;
-                    for (let key in joke.flags) {
-                      if (
-                        joke.flags[key] === true &&
-                        filters.flags.includes(key)
-                      ) {
-                        flagcounter++;
-                      }
-                    }
-                    if (flagcounter > 0) {
-                      return false;
-                    }
-                    shownJokes++;
-                    return true;
-                  })
-                  .map((joke, index) => {
-                    return (
-                      <Grid item xs={4} sm={4} lg={4} key={index}>
-                        <JokeCard joke={joke} />
-                      </Grid>
-                    );
-                  })}
+                {filterJokes(jokes).map((joke, index) => {
+                  return (
+                    <Grid item xs={4} sm={4} lg={4} key={index}>
+                      <JokeCard joke={joke} />
+                    </Grid>
+                  );
+                })}
               </Grid>
               {shownJokes > 0 ? null : (
                 <Box
@@ -139,7 +150,7 @@ const Jokes = () => {
                   }}
                 >
                   <Alert severity="error">
-                    {`No jokes to dipslay - ${jokes.length} jokes are blocked by the filter.`}
+                    {`No jokes to dipslay - ${totalJokes} jokes are blocked by the filter.`}
                   </Alert>
                 </Box>
               )}
