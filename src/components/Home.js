@@ -24,7 +24,7 @@ const Home = () => {
         alignItems="center"
         spacing={12}
         sx={{
-          mt: { xs: 10, md: 25, lg: 15 },
+          mt: { xs: 3, md: 25, lg: 15 },
           ml: { xs: 5, md: 10, lg: 0 },
           mr: { xs: 5, md: 10, lg: 0 },
         }}
@@ -60,6 +60,7 @@ const Home = () => {
           <img src={emojiImage} alt="" style={{ width: "100%" }} />
         </Box>
       </Stack>
+      <Toolbar />
     </Container>
   );
 };
