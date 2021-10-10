@@ -23,7 +23,7 @@ const Info = () => {
         JokeHub is a portfolio project by Aaron Claes
       </Typography>
       <Typography
-        sx={{ fontWeight: "bold" }}
+        sx={{ fontWeight: "semiBold", mb: "0.1rem", mt: "1rem" }}
         paragraph
         variant="h5"
         component="h3"
@@ -51,15 +51,7 @@ const Info = () => {
         to={{ pathname: "https://github.com/AaronClaes/jokesapp" }}
         target="_blank"
       >
-        <Typography
-          sx={{ fontWeight: "light" }}
-          paragraph
-          variant="h6"
-          component="h3"
-          color="text.primary"
-        >
-          JokeHub Repository
-        </Typography>
+        <Typography color="text.primary">JokeHub Repository</Typography>
       </Link>
       <Typography
         sx={{ fontWeight: "semiBold", mb: "0rem", mt: "1rem" }}
